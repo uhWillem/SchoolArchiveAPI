@@ -20,6 +20,36 @@ exports.getAITLeerlingen = async (req, res, next) => {
     }
 };
 
+exports.getITNLeerlingen = async (req, res, next) => {
+    try {
+        const [leerlingen, _] = await Leerling.findAllITN();
+
+        res.status(200).json({ count: leerlingen.length, leerlingen });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.getOMCLeerlingen = async (req, res, next) => {
+    try {
+        const [leerlingen, _] = await Leerling.findAllOMC();
+
+        res.status(200).json({ count: leerlingen.length, leerlingen });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.getMOLeerlingen = async (req, res, next) => {
+    try {
+        const [leerlingen, _] = await Leerling.findAllMO();
+
+        res.status(200).json({ count: leerlingen.length, leerlingen });
+    } catch (error) {
+        next(error);
+    }
+};
+
 
 
 exports.createNewLeerling = async (req, res, next) => {

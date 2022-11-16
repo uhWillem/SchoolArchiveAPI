@@ -50,6 +50,21 @@ class Leerling {
         let sql = "SELECT * FROM Leerling WHERE richting = 'AIT';";
         return db.execute(sql);
     }
+
+    static findAllITN() {
+        let sql = "SELECT * FROM Leerling WHERE richting = 'ITN';";
+        return db.execute(sql);
+    }
+
+    static findAllOMC() {
+        let sql = "SELECT * FROM Leerling WHERE richting = 'OMC';";
+        return db.execute(sql);
+    }
+
+    static findAllMO() {
+        let sql = "SELECT * FROM Leerling WHERE richting = 'MO';";
+        return db.execute(sql);
+    }
 }
 
 module.exports = Leerling;
