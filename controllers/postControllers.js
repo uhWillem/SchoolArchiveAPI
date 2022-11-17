@@ -3,8 +3,20 @@ const Leerling = require('../models/Post');
 exports.getAllLeerlingen = async (req, res, next) => {
     try {
         const [leerlingen, _] = await Leerling.findAll();
+        const richtingCount = await Leerling.getCount();
+        // only save the count of the richting from the richtingCount array
+        const aitCount = richtingCount[0][0].amount;
+        const itnCount = richtingCount[0][1].amount;
+        const omcCount = richtingCount[0][2].amount;
+        const moCount = richtingCount[0][3].amount;
 
-        res.status(200).json({ count: leerlingen.length, leerlingen });
+        res.status(200).json({
+            totalcount: leerlingen.length,
+            count:
+                { AIT: aitCount, ITN: itnCount, OMC: omcCount, MO: moCount },
+            leerlingen
+        });
+
     } catch (error) {
         next(error);
     }

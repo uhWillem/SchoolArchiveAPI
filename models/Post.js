@@ -42,7 +42,7 @@ class Leerling {
     }
 
     static findAll() {
-        let sql = "SELECT * FROM Leerling;";
+        let sql = `SELECT * FROM Leerling;`;
         return db.execute(sql);
     }
 
@@ -63,6 +63,16 @@ class Leerling {
 
     static findAllMO() {
         let sql = "SELECT * FROM Leerling WHERE richting = 'MO';";
+        return db.execute(sql);
+    }
+
+    static getCount() {
+        let sql = `
+            SELECT richting, COUNT(*) AS amount
+            FROM Leerling
+            GROUP BY richting
+            `;
+
         return db.execute(sql);
     }
 }
