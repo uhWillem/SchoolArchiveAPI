@@ -16,6 +16,8 @@ exports.getAllLeerlingen = async (req, res, next) => {
 exports.getCountRichtingen = async (req, res, next) => {
     try {
         const richtingCount = await Leerling.getCount();
+        const totalCount = await Leerling.findAll();
+        totalcount1 = totalCount[0].length;
         // only save the count of the richting from the richtingCount array
         const aitCount = richtingCount[0][0].amount;
         const itnCount = richtingCount[0][1].amount;
@@ -23,6 +25,7 @@ exports.getCountRichtingen = async (req, res, next) => {
         const moCount = richtingCount[0][3].amount;
 
         res.status(200).json({
+            totalcount: totalcount1,
             AIT: aitCount,
             ITN: itnCount,
             OMC: omcCount,
