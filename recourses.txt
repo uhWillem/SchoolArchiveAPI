@@ -1,4 +1,5 @@
 https://www.youtube.com/watch?v=344Zv2m9TYI
+https://github.com/LloydJanseVanRensburg/Node-MySQL-Tut
 
 // cannot find path specified error
 https://stackoverflow.com/questions/39190164/npm-the-system-cannot-find-the-path-specified (set npm to `npm config set script-shell powershell` )
