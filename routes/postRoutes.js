@@ -10,7 +10,7 @@ router
 
 router.route("/id/:id").get(postControllers.getLeerlingByID); // GET request to get a leerling by ID.
 router.route("/ait").get(postControllers.getAITLeerlingen); // GET request to get all AIT leerlingen.
-router.route("/itn").get(postControllers.getITNLeerlingen); // GET request to get all AIT leerlingen.
-router.route("/omc").get(postControllers.getOMCLeerlingen); // GET request to get all AIT leerlingen.
-router.route("/mo").get(postControllers.getMOLeerlingen); // GET request to get all AIT leerlingen.
+router.route("/itn").get(postControllers.getITNLeerlingen); // GET request to get all ITN leerlingen.
+router.route("/omc").get(postControllers.getOMCLeerlingen); // GET request to get all OMC leerlingen.
+router.route("/mo").get(postControllers.getMOLeerlingen); // GET request to get all MO leerlingen.
 module.exports = router; // Export router
