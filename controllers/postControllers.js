@@ -13,6 +13,41 @@ exports.getAllLeerlingen = async (req, res, next) => {
     }
 };
 
+exports.getLeerlingByID = async (req, res, next) => {
+    try {
+        let id = req.params.id;
+        const [leerling, _] = await Leerling.findById(id);
+
+        res.status(200).json({ leerling });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.createNewLeerling = async (req, res, next) => {
+    try {
+        let { voornaam, achternaam } = req.body;
+        let leerling = new Leerling(voornaam, achternaam);
+
+        leerling = await leerling.save();
+
+        res.status(201).json({ message: "Leerling created" });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.deleteLeerlingById = async (req, res, next) => {
+    try {
+        let id = req.params.id;
+        const [leerling, _] = await Leerling.deleteById(id);
+
+        res.status(200).json({ leerling });
+    } catch (error) {
+        next(error);
+    }
+}
+
 exports.getCountRichtingen = async (req, res, next) => {
     try {
         const richtingCount = await Leerling.getCount();
@@ -76,23 +111,3 @@ exports.getMOLeerlingen = async (req, res, next) => {
     }
 };
 
-exports.createNewLeerling = async (req, res, next) => {
-    try {
-        let { voornaam, achternaam } = req.body;
-        let leerling = new Leerling(voornaam, achternaam);
-
-        leerling = await leerling.save();
-
-        res.status(201).json({ message: "Leerling created" });
-    } catch (error) {
-        next(error);
-    }
-};
-
-exports.getLeerlingByID = (req, res, next) => {
-    res.send("Leerling by id");
-};
-
-exports.deleteLeerlingByID = (req, res, next) => {
-    res.send("Delete leerling by id");
-}

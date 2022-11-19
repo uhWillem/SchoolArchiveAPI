@@ -61,6 +61,16 @@ class Leerling {
         return db.execute(sql);
     }
 
+    static findById(id) {
+        let sql = `SELECT * FROM Leerling WHERE leerling_id = ${id};`;
+        return db.execute(sql);
+    }
+
+    static deleteById(id) {
+        let sql = `DELETE FROM Leerling WHERE leerling_id = ${id};`;
+        return db.execute(sql);
+    }
+
     static getCount() {
         let sql = `
             SELECT richting, COUNT(*) AS amount
