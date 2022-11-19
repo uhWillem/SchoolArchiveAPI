@@ -77,17 +77,22 @@ exports.getMOLeerlingen = async (req, res, next) => {
 };
 
 exports.createNewLeerling = async (req, res, next) => {
-    // haalt voornaam & achternaam data uit de post request
-    let { voornaam, achternaam } = req.body;
-    let leerling = new Leerling(voornaam, achternaam);
+    try {
+        let { voornaam, achternaam } = req.body;
+        let leerling = new Leerling(voornaam, achternaam);
 
-    leerling = await Leerling.save();
+        leerling = await leerling.save();
 
-    console.log(leerling);
-
-    res.send("Create new leerlingen");
+        res.status(201).json({ message: "Leerling created" });
+    } catch (error) {
+        next(error);
+    }
 };
 
 exports.getLeerlingByID = (req, res, next) => {
     res.send("Leerling by id");
 };
+
+exports.deleteLeerlingByID = (req, res, next) => {
+    res.send("Delete leerling by id");
+}

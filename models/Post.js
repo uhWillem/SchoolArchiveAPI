@@ -11,7 +11,7 @@ class Leerling {
         this.achternaam = achternaam;
     }
 
-    async save() {
+    save() {
         let d = new Date();
         let yyyy = d.getFullYear();
         // maanden beginnen bij 0 dus + 1 (zeroindex)
@@ -21,9 +21,9 @@ class Leerling {
         let createdAtDate = `${yyyy}-${mm}-${dd}`;
 
         let sql = `
-        INSERT INTO Leerlingen(
-           voornaam
-           achternaam
+        INSERT INTO Leerling(
+           voornaam,
+           achternaam,
            created_at
         )
         VALUES(
@@ -33,12 +33,7 @@ class Leerling {
         )
         `;
 
-        // maakt een nieuwe variable "newLeerling" en geeft het het de eerste waarde die de execute methode terug geeft.
-        // the first variable is the result of the query, the second variable is an empty array
-        // the result of the second parameter of the execute method, which is an empty array by default
-        const [newLeerling, _] = await db.execute(sql);
-
-        return newLeerling;
+        return db.execute(sql);
     }
 
     static findAll() {
