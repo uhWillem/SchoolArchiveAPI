@@ -9,6 +9,13 @@ class Leerling {
     constructor(naam, achternaam) {
         this.naam = naam;
         this.achternaam = achternaam;
+        this.richting = richting;
+        this.geboortejaar = geboortejaar;
+        this.geslacht = geslacht;
+        this.email = email;
+        this.telefoonnummer = telefoonnummer;
+        this.woonplaats = woonplaats;
+        this.notities = notitie;
     }
 
     save() {
@@ -24,11 +31,25 @@ class Leerling {
         INSERT INTO Leerling(
            voornaam,
            achternaam,
+           richting,
+           geboortejaar,
+           geslacht,
+           email,
+           telefoonnummer,
+           woonplaats,
+           notitie,
            created_at
         )
         VALUES(
             '${this.naam}',
             '${this.achternaam}',
+            '${this.richting}',
+            '${this.geboortejaar}',
+            '${this.geslacht}',
+            '${this.email}',
+            '${this.telefoonnummer}',
+            '${this.woonplaats}',
+            '${this.notitie}',
             '${createdAtDate}'
         )
         `;

@@ -26,8 +26,29 @@ exports.getLeerlingByID = async (req, res, next) => {
 
 exports.createNewLeerling = async (req, res, next) => {
     try {
-        let { voornaam, achternaam } = req.body;
-        let leerling = new Leerling(voornaam, achternaam);
+        let {
+            voornaam,
+            achternaam,
+            richting,
+            geboortejaar,
+            geslacht,
+            email,
+            telefoon,
+            woonplaats,
+            notitie,
+        } = req.body;
+
+        let leerling = new Leerling(
+            voornaam,
+            achternaam,
+            richting,
+            geboortejaar,
+            geslacht,
+            email,
+            telefoon,
+            woonplaats,
+            notitie
+        );
 
         leerling = await leerling.save();
 
@@ -46,7 +67,7 @@ exports.deleteLeerlingById = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
+};
 
 exports.getCountRichtingen = async (req, res, next) => {
     try {
@@ -110,4 +131,3 @@ exports.getMOLeerlingen = async (req, res, next) => {
         next(error);
     }
 };
-
