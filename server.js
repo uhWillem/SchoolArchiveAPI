@@ -1,6 +1,9 @@
 require("dotenv").config(); // ALLOWS ENVIRONMENT VARIABLES TO BE SET ON PROCESS.ENV SHOULD BE AT TOP
 
 const express = require("express");
+
+
+// cors explanation https://www.youtube.com/watch?v=EdJ6RJ3uGbo
 const cors = require("cors");
 const app = express();
 
@@ -9,7 +12,7 @@ app.use(express.json()); // parse json bodies in the request object
 app.use(cors()); // allow cross origin requests
 
 // Redirect requests to endpoint starting with /posts to postRoutes.js
-app.use("/api/leerlingen", require("./routes/postRoutes"));
+app.use("/api/students", require("./routes/StudentRoutes"));
 
 // Global Error Handler. IMPORTANT function params MUST start with err
 app.use((err, req, res, next) => {
