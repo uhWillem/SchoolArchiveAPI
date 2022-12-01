@@ -10,8 +10,9 @@ router
 
 router
     .route("/students/id/:id")
-    .get(StudentController.getStudentByID) // GET request to get a leerling by ID.
-    .delete(StudentController.deleteStudentById); // DELETE request to delete a leerling by ID
+    .get(StudentController.getStudentById) // GET request to get a leerling by ID.
+    .delete(StudentController.deleteStudentById) // DELETE request to delete a leerling by ID
+    .put(StudentController.updateStudentById); // UPDATE request to update a leerling by ID.
 
 router.route("/students/ait").get(StudentController.getAITStudents); // GET request to get all AIT leerlingen.
 

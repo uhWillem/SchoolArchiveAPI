@@ -6,7 +6,17 @@
 const db = require("../config/db");
 
 class Student {
-    constructor(first_name, last_name, course, birthyear, sex, email, phone_number, city, note) {
+    constructor(
+        first_name,
+        last_name,
+        course,
+        birthyear,
+        sex,
+        email,
+        phone_number,
+        city,
+        note
+    ) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.course = course;
@@ -90,6 +100,43 @@ class Student {
     static deleteById(id) {
         let sql = `DELETE FROM student WHERE student_id = ${id};`;
         return db.execute(sql);
+    }
+
+    static updateById(
+        id,
+        first_name,
+        last_name,
+        course,
+        birthyear,
+        sex,
+        email,
+        phone_number,
+        city,
+        note
+    ) {
+        let sql = `SELECT student_id FROM student WHERE student_id = ${id};`;
+        db.execute(sql).then(([rows, _]) => {
+            console.log("rows: ", rows);
+            if (rows.length === 0) {
+                return false;
+            } else {
+                let sql = ` 
+                UPDATE student
+                SET
+                    first_name = '${first_name}',
+                    last_name = '${last_name}',
+                    course = '${course}',
+                    birthyear = '${birthyear}',
+                    sex = '${sex}',
+                    email = '${email}',
+                    phone_number = '${phone_number}',
+                    city = '${city}',
+                    note = '${note}'
+                WHERE student_id = ${id};
+                `;
+                return db.execute(sql);
+            }
+        });
     }
 
     static getCount() {

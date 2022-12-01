@@ -13,7 +13,7 @@ exports.getAllStudents = async (req, res, next) => {
     }
 };
 
-exports.getStudentByID = async (req, res, next) => {
+exports.getStudentById = async (req, res, next) => {
     try {
         let id = req.params.id;
         const [student, _] = await Student.findById(id);
@@ -37,7 +37,7 @@ exports.createNewStudent = async (req, res, next) => {
             city,
             note,
         } = req.body;
-        console.log(req.body);
+
         let student = new Student(
             first_name,
             last_name,
@@ -53,6 +53,29 @@ exports.createNewStudent = async (req, res, next) => {
         student = await student.save();
 
         res.status(201).json({ message: "Student created" });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.getStudentById = async (req, res, next) => {
+    try {
+        let id = req.params.id;
+        const [student, _] = await Student.findById(id);
+
+        res.status(200).json({ student });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.updateStudentById = async (req, res, next) => {
+    try {
+        let id = req.params.id;
+        const [student, _] = await Student.updateById(id, req.body.first_name, req.body.last_name, req.body.course,
+            req.body.birthyear, req.body.sex, req.body.email, req.body.phone_number, req.body.city, req.body.note);
+
+        res.status(200).json({ "message": "Successfully update student", "student": student });
     } catch (error) {
         next(error);
     }
