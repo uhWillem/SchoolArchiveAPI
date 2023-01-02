@@ -11,9 +11,9 @@ router
 // @route GET && DELETE && PATCH - /students/id/:id
 router
     .route("/students/id/:id")
-    .get(StudentController.getStudentByID) // GET request to get a leerling by ID.
+    .get(StudentController.getStudentById) // GET request to get a leerling by ID.
     .delete(StudentController.deleteStudentById) // DELETE request to delete a leerling by ID
-    .patch(StudentController.updateStudentById); // PATCH request to update a leerling by ID
+    .put(StudentController.updateStudentById); // UPDATE request to update a leerling by ID.
 
 router.route("/students/course").get(StudentController.getStudentsByCourse); // GET request to get all AIT leerlingen.
 

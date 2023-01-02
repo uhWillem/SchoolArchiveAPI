@@ -92,6 +92,7 @@ class Student {
         first_name,
         last_name,
         course,
+        birthyear,
         sex,
         email,
         phone_number,
