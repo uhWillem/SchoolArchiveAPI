@@ -15,7 +15,7 @@ exports.getAllStudents = async (req, res, next) => {
 
 exports.getStudentByID = async (req, res, next) => {
     try {
-        let id = req.params.id;
+        let id = req.query.id;
         const [student, _] = await Student.findById(id);
 
         res.status(200).json({ student });
@@ -69,7 +69,19 @@ exports.deleteStudentById = async (req, res, next) => {
     }
 };
 
-exports.getCountRichtingen = async (req, res, next) => {
+exports.updateStudentById = async (req, res, next) => {
+    try {
+        let id = req.params.id;
+        // add code to get the data from the request body 
+        const [student, _] = await Student.updateById(id);
+
+        res.status(200).json({ student });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.getCountCourses = async (req, res, next) => {
     try {
         const courseCount = await Student.getCount();
         const totalCount = await Student.findAll();
@@ -92,42 +104,13 @@ exports.getCountRichtingen = async (req, res, next) => {
     }
 };
 
-exports.getAITStudents = async (req, res, next) => {
+exports.getStudentsByCourse = async (req, res, next) => {
     try {
-        const [students, _] = await Student.findAllAIT();
+        let course = req.query.course;
 
-        res.status(200).json({ count: students.length, students });
+        const students = await Student.getStudentsByCourse(course);
+        res.status(200).json(students);
     } catch (error) {
         next(error);
     }
-};
-
-exports.getITNStudents = async (req, res, next) => {
-    try {
-        const [students, _] = await Student.findAllITN();
-
-        res.status(200).json({ count: students.length, students });
-    } catch (error) {
-        next(error);
-    }
-};
-
-exports.getOMCStudents = async (req, res, next) => {
-    try {
-        const [students, _] = await Student.findAllOMC();
-
-        res.status(200).json({ count: students.length, students });
-    } catch (error) {
-        next(error);
-    }
-};
-
-exports.getMOStudents = async (req, res, next) => {
-    try {
-        const [students, _] = await Student.findAllMO();
-
-        res.status(200).json({ count: students.length, students });
-    } catch (error) {
-        next(error);
-    }
-};
+}

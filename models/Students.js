@@ -6,7 +6,17 @@
 const db = require("../config/db");
 
 class Student {
-    constructor(first_name, last_name, course, birthyear, sex, email, phone_number, city, note) {
+    constructor(
+        first_name,
+        last_name,
+        course,
+        birthyear,
+        sex,
+        email,
+        phone_number,
+        city,
+        note
+    ) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.course = course;
@@ -62,23 +72,8 @@ class Student {
         return db.execute(sql);
     }
 
-    static findAllAIT() {
-        let sql = "SELECT * FROM student WHERE course = 'AIT';";
-        return db.execute(sql);
-    }
-
-    static findAllITN() {
-        let sql = "SELECT * FROM student WHERE course = 'ITN';";
-        return db.execute(sql);
-    }
-
-    static findAllOMC() {
-        let sql = "SELECT * FROM student WHERE course = 'OMC';";
-        return db.execute(sql);
-    }
-
-    static findAllMO() {
-        let sql = "SELECT * FROM student WHERE course = 'MO';";
+    static findStudentsByCourse(course) {
+        let sql = `SELECT * FROM student WHERE course = '${course}';`;
         return db.execute(sql);
     }
 
@@ -89,6 +84,37 @@ class Student {
 
     static deleteById(id) {
         let sql = `DELETE FROM student WHERE student_id = ${id};`;
+        return db.execute(sql);
+    }
+
+    static updateById(
+        id,
+        first_name,
+        last_name,
+        course,
+        sex,
+        email,
+        phone_number,
+        city,
+        note
+    ) {
+        let sql = `
+        UPDATE student
+        SET first_name = '${first_name}',
+            last_name = '${last_name}',
+            course = '${course}',
+            sex = '${sex}', 
+            email = '${email}',
+            phone_number = '${phone_number}',
+            city = '${city}',
+            note = '${note}'
+        WHERE student_id = ${id};
+        `;
+        return db.execute(sql);
+    }
+
+    static getStudentsByCourse(course) {
+        let sql = `SELECT * from student WHERE course = '${course}'; `;
         return db.execute(sql);
     }
 

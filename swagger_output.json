@@ -5,7 +5,7 @@
     "title": "REST API",
     "description": ""
   },
-  "host": "localhost:3000",
+  "host": "localhost",
   "basePath": "/",
   "schemes": [
     "http"
@@ -100,12 +100,17 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/students/ait": {
-      "get": {
+      },
+      "patch": {
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -113,29 +118,7 @@
         }
       }
     },
-    "/students/itn": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/students/omc": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/students/mo": {
+    "/students/course": {
       "get": {
         "description": "",
         "parameters": [],
