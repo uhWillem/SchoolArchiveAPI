@@ -1,8 +1,25 @@
+// without [students, _] the _ you get a ton of useless data in the response, now this
+
 const Student = require("../models/Students.js");
 
 exports.getAllStudents = async (req, res, next) => {
     try {
         const [students, _] = await Student.findAll();
+
+        res.status(200).json({
+            totalcount: students.length,
+            students,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.getStudentsByCourse = async (req, res, next) => {
+    try {
+        let course = req.query.course;
+
+        const [students, _] = await Student.getStudentsByCourse(course);
 
         res.status(200).json({
             totalcount: students.length,
@@ -47,7 +64,7 @@ exports.createNewStudent = async (req, res, next) => {
             email,
             phone_number,
             city,
-            note,
+            note
         );
 
         student = await student.save();
@@ -72,10 +89,23 @@ exports.getStudentById = async (req, res, next) => {
 exports.updateStudentById = async (req, res, next) => {
     try {
         let id = req.params.id;
-        const [student, _] = await Student.updateById(id, req.body.first_name, req.body.last_name, req.body.course,
-            req.body.birthyear, req.body.sex, req.body.email, req.body.phone_number, req.body.city, req.body.note);
+        const [student, _] = await Student.updateById(
+            id,
+            req.body.first_name,
+            req.body.last_name,
+            req.body.course,
+            req.body.birthyear,
+            req.body.sex,
+            req.body.email,
+            req.body.phone_number,
+            req.body.city,
+            req.body.note
+        );
 
-        res.status(200).json({ "message": "Successfully update student", "student": student });
+        res.status(200).json({
+            message: "Successfully update student",
+            student: student,
+        });
     } catch (error) {
         next(error);
     }
@@ -95,7 +125,7 @@ exports.deleteStudentById = async (req, res, next) => {
 exports.updateStudentById = async (req, res, next) => {
     try {
         let id = req.params.id;
-        // add code to get the data from the request body 
+        // add code to get the data from the request body
         const [student, _] = await Student.updateById(id);
 
         res.status(200).json({ student });
@@ -108,12 +138,36 @@ exports.getCountCourses = async (req, res, next) => {
     try {
         const courseCount = await Student.getCount();
         const totalCount = await Student.findAll();
-        totalcount1 = totalCount[0].length;
-        // only save the count of the course from the courseCount array
-        const aitCount = courseCount[0][0].amount;
-        const itnCount = courseCount[0][1].amount;
-        const omcCount = courseCount[0][2].amount;
-        const moCount = courseCount[0][3].amount;
+        const totalcount1 = totalCount[0].length;
+
+        // Prevent TypeError by setting count variables to 0 when courseCount[0][x].amount is undefined
+        // this can occur if there are no students in that specific course yet
+
+        let aitCount = 0;
+        let itnCount = 0;
+        let omcCount = 0;
+        let moCount = 0;
+        let other = 0;
+        for (const [index, count] of courseCount[0].entries()) {
+            switch (count.course) {
+                case "AIT":
+                    aitCount = courseCount[0][index].amount;
+                    break;
+                case "ITN":
+                    itnCount = courseCount[0][index].amount;
+                    break;
+                case "OMC":
+                    omcCount = courseCount[0][index].amount;
+                    break;
+                case "MO":
+                    moCount = courseCount[0][index].amount;
+                    break;
+                default:
+                    other += courseCount[0][index].amount;
+                    break;
+
+            }
+        }
 
         res.status(200).json({
             totalcount: totalcount1,
@@ -121,19 +175,11 @@ exports.getCountCourses = async (req, res, next) => {
             ITN: itnCount,
             OMC: omcCount,
             MO: moCount,
+            Other: other,
         });
     } catch (error) {
         next(error);
     }
 };
 
-exports.getStudentsByCourse = async (req, res, next) => {
-    try {
-        let course = req.query.course;
 
-        const students = await Student.getStudentsByCourse(course);
-        res.status(200).json(students);
-    } catch (error) {
-        next(error);
-    }
-}
