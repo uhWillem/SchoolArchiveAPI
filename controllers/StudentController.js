@@ -128,7 +128,7 @@ exports.updateStudentById = async (req, res, next) => {
 exports.deleteStudentById = async (req, res, next) => {
     try {
         let id = req.params.id;
-        const [student, _] = await Student.deleteById(id);
+        await Student.deleteById(id);
 
         res.status(200).json({ message: "Student deleted" });
     } catch (error) {
