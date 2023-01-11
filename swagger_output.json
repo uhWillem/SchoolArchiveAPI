@@ -77,6 +77,11 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {
@@ -152,28 +157,18 @@
             "description": "OK"
           }
         }
-      },
-      "patch": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
       }
     },
     "/students/course": {
       "get": {
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "course",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"

@@ -67,6 +67,25 @@ class Student {
         return db.execute(sql);
     }
 
+    update(id) {
+        let sql = `
+        UPDATE student
+        SET
+            first_name = '${this.first_name}',
+            last_name = '${this.last_name}',
+            course = '${this.course}',
+            birthyear = '${this.birthyear}',
+            sex = '${this.sex}',
+            email = '${this.email}',
+            phone_number = '${this.phone_number}',
+            city = '${this.city}',
+            note = '${this.note}'
+        WHERE student_id = ${id};
+        `;
+        return db.execute(sql);
+
+    }
+
     static findAll() {
         let sql = `SELECT * FROM student;`;
         return db.execute(sql);

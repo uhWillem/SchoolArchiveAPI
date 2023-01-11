@@ -89,23 +89,37 @@ exports.getStudentById = async (req, res, next) => {
 exports.updateStudentById = async (req, res, next) => {
     try {
         let id = req.params.id;
-        const [student, _] = await Student.updateById(
-            id,
-            req.body.first_name,
-            req.body.last_name,
-            req.body.course,
-            req.body.birthyear,
-            req.body.sex,
-            req.body.email,
-            req.body.phone_number,
-            req.body.city,
-            req.body.note
+        let {
+            first_name,
+            last_name,
+            course,
+            birthyear,
+            sex,
+            email,
+            phone_number,
+            city,
+            note,
+        } = req.body;
+
+        let student = new Student(
+            first_name,
+            last_name,
+            course,
+            birthyear,
+            sex,
+            email,
+            phone_number,
+            city,
+            note
         );
+
+        student = await student.update(id);
 
         res.status(200).json({
             message: "Successfully update student",
             student: student,
         });
+
     } catch (error) {
         next(error);
     }
@@ -116,23 +130,12 @@ exports.deleteStudentById = async (req, res, next) => {
         let id = req.params.id;
         const [student, _] = await Student.deleteById(id);
 
-        res.status(200).json({ student });
+        res.status(200).json({ message: "Student deleted" });
     } catch (error) {
         next(error);
     }
 };
 
-exports.updateStudentById = async (req, res, next) => {
-    try {
-        let id = req.params.id;
-        // add code to get the data from the request body
-        const [student, _] = await Student.updateById(id);
-
-        res.status(200).json({ student });
-    } catch (error) {
-        next(error);
-    }
-};
 
 exports.getCountCourses = async (req, res, next) => {
     try {
